@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+        <script type="text/babel">
+        /**
+         * Using memo will cause React to skip rendering a component if its props have not changed.
+         * In the below example When you click the increment button, the Todos component re-renders. If this component was complex, it could cause performance issues.
+         * To fix this we need export the component by wrapping inside memo 
+         * Ex: export default React.memo(Todos);
+         * Now the Todos component only re-renders when the todos that are passed to it through props are updated.
+         * Reference: w3 schools and https://codesandbox.io/s/react-memo-demo-c9dx1?file=/src/index.js
+         * Note: If the component isn't heavy and usually renders with different props, most likely you don't need React.memo().
+         * Use React.memo() only when there is chance the component renders again with same props frequently
+         * 
+         **/
+        function Todos ({ todos }) {
+            console.log("child render");
+            return (
+                <div>
+                <h2>My Todos</h2>
+                {todos.map((todo, index) => {
+                    return <p key={index}>{todo}</p>;
+                })}
+                </div>
+            );
+        };
+
+        function App() {
+            const [count, setCount] = React.useState(0);
+            const [todos, setTodos] = React.useState(["todo 1", "todo 2"]);
+
+            const increment = () => {
+                setCount((c) => c + 1);
+            };
+
+            return (
+                <div>
+                    <Todos todos={todos} />
+                    <hr />
+                    <div>
+                        Count: {count}
+                        <button onClick={increment}>+</button>
+                    </div>
+                </div>
+            );
+        };
+
+            ReactDOM.render( <App />, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

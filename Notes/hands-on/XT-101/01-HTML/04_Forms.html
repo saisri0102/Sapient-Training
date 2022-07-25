@@ -1,0 +1,40 @@
+<!--
+    Importance of label
+
+    The <label> tag defines a label for many form elements.
+
+The <label> element is useful for screen-reader users, because the screen-reader will read out loud the label when the user focus on the input element.
+
+The <label> element also help users who have difficulty clicking on very small regions (such as radio buttons or checkboxes) - because when the user clicks the text within the <label> element, it toggles the radio button/checkbox.
+
+The for attribute of the <label> tag should be equal to the id attribute of the <input> element to bind them together.
+
+-->
+
+<!--
+    Importance of Name Attribute
+    Notice that each input field must have a name attribute to be submitted.
+    If the name attribute is omitted, the value of the input field will not be sent at all.
+
+ 
+-->
+
+<!--
+    Form Tag Attributes
+
+    The default HTTP method when submitting form data is GET. 
+    NEVER use GET to send sensitive data! (the submitted form data is visible in the URL!)
+
+    Notes on GET:
+
+        Appends the form data to the URL, in name/value pairs
+        NEVER use GET to send sensitive data! (the submitted form data is visible in the URL!)
+        The length of a URL is limited (2048 characters)
+        Useful for form submissions where a user wants to bookmark the result
+        GET is good for non-secure data, like query strings in Google
+    Notes on POST:
+
+        Appends the form data inside the body of the HTTP request (the submitted form data is not shown in the URL)
+        POST has no size limitations, and can be used to send large amounts of data.
+        Form submissions with POST cannot be bookmarked
+-->

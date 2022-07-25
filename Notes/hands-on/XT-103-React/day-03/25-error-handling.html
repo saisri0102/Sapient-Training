@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+    <script type="text/babel">
+
+        /**
+         - Any component which uses one of the following lifecycle methods is considered an error boundary.
+        - In what places can an error boundary detect an error?
+            - Render phase
+            - Inside a lifecycle method
+            - Inside the constructor
+        - When we are not using the error boundary, instead of seeing an error, we see a blank page. Since any error inside the render method leads to unmounting of the component. To display an error that occurs inside the render method, we use error boundaries.
+        - error boundary is a component using one or both of the following methods: static getDerivedStateFromError and componentDidCatch.
+         **/
+
+
+            function X() {
+                foo();
+
+                return (
+                    <div>I am X</div>
+                );
+            }
+            
+            function Y() {
+                return (
+                    <div>I am Y</div>
+                );
+            }
+
+
+        class ErrorBoundary extends React.Component {
+
+            state = {
+                error: null
+            }
+
+            componentDidCatch(error) {
+                this.setState({
+                    error:error
+                });
+            }
+            render(){
+                const {error} = this.state;
+                return error ? <div>{error.message}</div> : this.props.children;
+            }
+        }
+        function Parent (){
+            return (
+                <React.Fragment>
+                    <ErrorBoundary>
+                        <X />
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <Y />
+                    </ErrorBoundary>
+                </React.Fragment>
+            )
+        }
+
+        ReactDOM.render( <Parent />, document.getElementById( 'root' ) );
+    </script>
+</body>
+</html>

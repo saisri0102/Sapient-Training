@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      /**
+       * React Context is a way to manage state globally.
+       * It can be used together with the useState Hook to share state between deeply nested components more easily than with useState alone.  
+       *  State should be held by the highest parent component in the stack that requires access to the state.
+       * To do this without Context, we will need to pass the state as "props" through each nested component. This is called "prop drilling".
+       * In the below Even though components 2-4 did not need the state, they had to pass the state along so that it could reach component 5.
+       * To solve this problem we use context api
+       **/
+      function Component1() {
+        const [user, setUser] = React.useState("Jesse Hall");
+
+        return (
+          <div>
+            <h1>{`Hello ${user}!`}</h1>
+            <Component2 user={user} />
+          </div>
+        );
+      }
+
+      function Component2({ user }) {
+        return (
+          <div>
+            <h1>Component 2</h1>
+            <Component3 user={user} />
+          </div>
+        );
+      }
+
+      function Component3({ user }) {
+        return (
+          <div>
+            <h1>Component 3</h1>
+            <Component4 user={user} />
+          </div>
+        );
+      }
+
+      function Component4({ user }) {
+        return (
+          <div>
+            <h1>Component 4</h1>
+            <Component5 user={user} />
+          </div>
+        );
+      }
+
+      function Component5({ user }) {
+        return (
+          <div>
+            <h1>Component 5</h1>
+            <h2>{`Hello ${user} again!`}</h2>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<Component1 />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

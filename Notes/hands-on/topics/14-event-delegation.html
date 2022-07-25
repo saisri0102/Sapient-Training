@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <ul id="categories">
+        <li id="apple"> Apple </li>
+        <li id="android"> Android </li>
+        <li id="camera"> Cameras </li>
+    </ul>
+    <script>
+        /**
+         * Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the .target property of the event object
+         * 
+         * Event delegation is possible because event bubbling is possible. As when we click on child,  parent event handler also executes
+         **/
+
+         document.querySelector('#categories').addEventListener('click' , (e) => {
+            console.log(e.target.id)
+            // window.location.href += '/' + e.target.id
+         })
+    </script>
+</body>
+</html>

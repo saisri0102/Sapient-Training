@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+    <script type="text/babel">
+
+        /**
+         * The useReducer() hook in React lets you separate the state management from the rendering logic of the component.
+
+        const [state, dispatch] = useReducer(reducer, initialState) accepts 2 argument: the reducer function and the initial state. Also, the reducer returns an array of 2 items: the current state and the dispatch function.
+
+        When you'd like to update the state, simply call dispatch(action) with the appropriate action object. The action object is then forwarded to the reducer() function that updates the state. If the state has been updated by the reducer, then the component re-renders, and [state, ...] = useReducer(...) hook returns the new state value.
+
+        useReducer() fits great with relatively complex state update (requiring at least 2-3 update actions). For simple state management, simply use useState().
+         * */
+        function reducer(state, action) {
+            switch (action.type) {
+                case 'start':
+                    return { ...state, isRunning: true };
+                case 'stop':
+                    return { ...state, isRunning: false };
+                case 'reset':
+                    return { isRunning: false, time: 0 };
+                case 'tick':
+                    return { ...state, time: state.time + 1 };
+                default:
+                    throw new Error();
+            }
+        }
+        function Stopwatch() {
+            const [state, dispatch] = React.useReducer(reducer, initialState);
+            const idRef = React.useRef(0);
+            React.useEffect(() => {
+                if (!state.isRunning) { 
+                return; 
+                }
+                idRef.current = setInterval(() => dispatch({type: 'tick'}), 1000);
+                return () => {
+                clearInterval(idRef.current);
+                idRef.current = 0;
+                };
+            }, [state.isRunning]);
+            
+            return (
+                <div>
+                {state.time}s
+                <button onClick={() => dispatch({ type: 'start' })}>
+                    Start
+                </button>
+                <button onClick={() => dispatch({ type: 'stop' })}>
+                    Stop
+                </button>
+                <button onClick={() => dispatch({ type: 'reset' })}>
+                    Reset
+                </button>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<Stopwatch /> , document.getElementById('root'))
+
+    </script>
+</body>
+</html>

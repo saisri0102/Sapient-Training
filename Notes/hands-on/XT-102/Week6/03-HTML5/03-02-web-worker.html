@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Worker Demo</title>
+</head>
+<body>
+    <!--
+        A web worker is a JavaScript running in the background, without affecting the performance of the page.
+        When executing scripts in an HTML page, the page becomes unresponsive until the script is finished.
+
+        A web worker is a JavaScript that runs in the background, independently of other scripts, without affecting the performance of the page. You can continue to do whatever you want: clicking, selecting things, etc., while the web worker runs in the background.
+    -->
+    which fibanocci number?
+    <input type="number" id="nth"/>
+    <button>Click me</button>
+
+    <script>
+
+        document.querySelector('button').addEventListener('click', function(){
+            if (typeof(Worker) !== "undefined") {
+                const worker= new Worker('./03-worker.js');
+                worker.postMessage({
+                n:parseInt(document.querySelector('#nth').value)
+                });
+
+                worker.onmessage= function({data:{n, result}}){
+                    console.log(`Fibonacci #${n} is ${result}`);
+                }
+            }
+            else{
+                console.log("Sorry! No Web Worker support.")
+            }
+           
+        });
+
+    </script>
+</body>
+
+</html>

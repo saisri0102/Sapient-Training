@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+    <script type="text/babel">
+
+        /**
+         Reference: https://dmitripavlutin.com/react-useref-guide/
+         * The useRef Hook allows you to persist values between renders.
+         Use Cases of useRef:
+            * It can be used to store a mutable value (Mutable is a type of variable that can be changed.) in functional components that does not cause a re-render when updated.
+            * It can be used to access a DOM element directly.  
+         
+         * useRef(initialValue) is a built-in React hook that accepts one argument as the initial value and returns a reference (aka ref). A reference is an object having a special property current.
+         * reference.current accesses the reference value, and reference.current = newValue updates the reference value
+         * A ref created with useRef will be created only when the component has been mounted and preserved for the full lifecycle.
+        * Updating a ref is a side effect so it should be done only inside a useEffect (or useLayoutEffect) or inside an event handler.
+         
+         There are 2 rules to remember about references:
+            * The value of the reference is persisted (stays the same) between component re-renderings;
+            * Updating a reference doesn't trigger a component re-rendering.
+         
+         Keeping a mutable variable 
+            * Both in class components and functional components using Hooks, we have two ways of keeping data between re-renders:
+            In class components
+                1. In the component state: Every time the state changes, the component will be re-rendered.
+                2. In an instance variable: The variable will persist for the full lifetime of the component. Changes in an instance variable won’t generate a re-render.
+            In functional components
+                1. In a state variable: useState or useReducer. Updates in state variables will cause a re-render of the component.
+                2. In a ref: Equivalent to instance variables in class components. Mutating the .current property won’t cause a re-render.
+
+        The 2 main differences between references and state:
+            * Updating a reference doesn't trigger re-rendering, while updating the state makes the component re-render;
+            * The reference update is synchronous (the updated reference value is available right away), while the state update is asynchronous (the state variable is updated after re-rendering).
+            
+         * */
+
+         // USE CASE 1: Storing Mutable values -> Ex: logging button clicks 
+         // The component LogButtonClicks uses a reference to store the number of clicks on a button:
+         function LogButtonClicks() {
+            const countRef = React.useRef(0);
+            
+            const handle = () => {
+                countRef.current++;
+                console.log(`Clicked ${countRef.current} times`);
+            };
+            console.log('I rendered!');
+            return <button onClick={handle}>Click me</button>;
+        }
+
+        // USE CASE 2: Accessing DOM Elements
+        function App() {
+            const inputElement = React.useRef();
+
+            const focusInput = () => {
+                console.log(inputElement.current.value);
+                inputElement.current.focus();
+            };
+
+            return (
+                <div>
+                    <input type="text" ref={inputElement} />
+                    <button onClick={focusInput}>Focus Input</button>
+                </div>
+            );
+        }
+        ReactDOM.render(<App /> , document.getElementById('root'))
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <div class="main">
+
+    </div>
+</head>
+<body>
+    <script>
+        const customUI = document.createElement('ul');
+        function responding() {
+            console.log('Responding')
+        }
+
+        for (var i = 1; i <= 10; i++) {
+            const newElement = document.createElement('li');
+            newElement.textContent = "This is line " + i;
+            newElement.addEventListener('click', responding)
+            customUI.appendChild(newElement);
+        }
+        document.querySelector('.main').appendChild(customUI);
+
+        // Here we are adding event listener on each child which is not good solution. Because in future if we have 100 childs then that means we have 100 event listeners
+        // Solution : Event delegation
+    </script>
+</body>
+</html>

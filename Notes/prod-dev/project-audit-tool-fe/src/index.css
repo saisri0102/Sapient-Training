@@ -1,0 +1,16 @@
+:root{
+    font-size:16px;
+}
+body{
+    font-family: Helvetica, sans-serif;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #F0F4F7;
+}
+
+@media only screen and (max-width: 750px){
+    :root{
+        font-size:12px;
+    }
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        SVG stands for Scalable Vector Graphics and it is a language for describing 2D-graphics and graphical applications in XML and the XML is then rendered by an SVG viewer.
+        Most of the web browsers can display SVG just like they can display PNG, GIF, and JPG. Internet Explorer users may have to install the Adobe SVG Viewer to be able to view SVG in the browser.
+    -->
+
+    <!--
+        ** An SVG image begins with an <svg> element
+        ** The width and height attributes of the <svg> element define the width and height of the SVG image
+        ** The <circle> element is used to draw a circle
+        ** The cx and cy attributes define the x and y coordinates of the center of the circle. If cx and cy are not set, the circle's center is set to (0, 0)
+        ** The r attribute defines the radius of the circle
+        ** The stroke and stroke-width attributes control how the outline of a shape appears. We set the outline of the circle to a 4px green "border"
+        ** The fill attribute refers to the color inside the circle. We set the fill color to yellow
+        The closing </svg> tag closes the SVG image
+    -->
+    <svg width="100" height="100">
+        <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+    </svg>
+    <!--
+        Some Available SVG Shapes
+        Rectangle <rect>
+        Circle <circle>
+        Ellipse <ellipse>
+        Line <line>
+        Polyline <polyline>
+        Polygon <polygon>
+        Path <path>
+    -->
+
+    <!--
+        ** The rx and the ry attributes rounds the corners of the rectangle
+        ** The x attribute defines the left position of the rectangle (e.g. x="50" places the rectangle 50 px from the left margin)
+        ** The y attribute defines the top position of the rectangle (e.g. y="20" places the rectangle 20 px from the top margin)
+        ** The CSS fill-opacity property defines the opacity of the fill color (legal range: 0 to 1)
+        ** The CSS stroke-opacity property defines the opacity of the stroke color (legal range: 0 to 1)
+    -->
+    <svg width="400" height="180">
+        <rect x="50" y="20" rx="20" ry="20" width="150" height="150"
+        style="fill:red;stroke:black;stroke-width:5;opacity:0.5" />
+    </svg>
+    <svg height="100" width="500">
+        <ellipse cx="240" cy="50" rx="220" ry="30" style="fill:yellow" />
+        <ellipse cx="220" cy="50" rx="190" ry="20" style="fill:white" />
+    </svg>
+    <svg height="210" width="500">
+        <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+    </svg>
+    <svg height="210" width="500">
+        <polygon points="100,10 40,198 190,78 10,78 160,198"
+        style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;" />
+    </svg>
+    <svg height="180" width="500">
+        <polyline points="0,40 40,40 40,80 80,80 80,120 120,120 120,160"
+        style="fill:white;stroke:red;stroke-width:4" />
+    </svg>
+    <!--
+        The <path> element is used to define a path.
+
+        The following commands are available for path data:
+
+        M = moveto
+        L = lineto
+        H = horizontal lineto
+        V = vertical lineto
+        C = curveto
+        S = smooth curveto
+        Q = quadratic Bézier curve
+        T = smooth quadratic Bézier curveto
+        A = elliptical Arc
+        Z = closepath
+    -->
+    <!--
+        The example below defines a path that starts at position 150,0 with a line to position 75,200 then from there, a line to 225,200 and finally closing the path back to 150,0:
+    -->
+    <svg height="210" width="400">
+        <path d="M150 0 L75 200 L225 200 Z" />
+    </svg>
+    <svg height="400" width="450">
+        <path id="lineAB" d="M 100 350 l 150 -300" stroke="red"
+        stroke-width="3" fill="none" />
+        <path id="lineBC" d="M 250 50 l 150 300" stroke="red"
+        stroke-width="3" fill="none" />
+        <path d="M 175 200 l 150 0" stroke="green" stroke-width="3"
+        fill="none" />
+        <path d="M 100 350 q 150 -300 300 0" stroke="blue"
+        stroke-width="5" fill="none" />
+        <!-- Mark relevant points -->
+        <g stroke="black" stroke-width="3" fill="black">
+          <circle id="pointA" cx="100" cy="350" r="3" />
+          <circle id="pointB" cx="250" cy="50" r="3" />
+          <circle id="pointC" cx="400" cy="350" r="3" />
+        </g>
+        <!-- Label the points -->
+        <g font-size="30" font-family="sans-serif" fill="black" stroke="none"
+        text-anchor="middle">
+          <text x="100" y="350" dx="-30">A</text>
+          <text x="250" y="50" dy="-10">B</text>
+          <text x="400" y="350" dx="30">C</text>
+        </g>
+      </svg>
+      <svg height="60" width="200">
+        <text x="0" y="15" fill="red" transform="rotate(30 20,40)">I love SVG</text>
+      </svg>
+
+      <svg height="90" width="200">
+        <text x="10" y="20" style="fill:red;">Several lines:
+          <tspan x="10" y="45">First line.</tspan>
+          <tspan x="10" y="70">Second line.</tspan>
+        </text>
+      </svg>
+
+      <svg height="30" width="200" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <a xlink:href="https://www.w3schools.com/graphics/" target="_blank">
+          <text x="0" y="15" fill="red">I love SVG!</text>
+        </a>
+      </svg>
+
+      <svg height="80" width="300">
+        <g fill="none" stroke="black" stroke-width="6">
+          <path stroke-linecap="butt" d="M5 20 l215 0" />
+          <path stroke-linecap="round" d="M5 40 l215 0" />
+          <path stroke-linecap="square" d="M5 60 l215 0" />
+        </g>
+      </svg>
+
+      <svg height="80" width="300">
+        <g fill="none" stroke="black" stroke-width="4">
+          <path stroke-dasharray="5,5" d="M5 20 l215 0" />
+          <path stroke-dasharray="10,10" d="M5 40 l215 0" />
+          <path stroke-dasharray="20,10,5,5,5,10" d="M5 60 l215 0" />
+        </g>
+      </svg>
+</body>
+</html>

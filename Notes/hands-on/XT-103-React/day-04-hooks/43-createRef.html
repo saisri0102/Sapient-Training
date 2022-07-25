@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+    <script type="text/babel">
+    // use the React.createRef() where the React/ HTML elements are dynamic.
+    /**
+     I was creating a project, where I had to create the single input picker, where whenever you enter data into one field it focus will get shifted to the next input automatically until the input box is the last one.
+     **/
+    const SingleTextInputGroupBox = (props) => {
+        const { inputList } = props;
+        const finalValue = [];
+        const [inputRefList, setInputRefList] = React.useState([]);
+
+        React.useEffect(() => {
+            createRef(inputList);
+        }, [inputList]);
+
+        const createRef = (inputList) => {
+            const refList = [];
+            inputList.forEach(() => {
+            refList.push(React.createRef());
+            });
+            setInputRefList(refList);
+        };
+
+        const handleValueChange = (value, index) => {
+            finalValue[index] = value;
+            if (index != inputList.length - 1 && value) {
+            inputRefList[index + 1].current.focus();
+            }
+            if (
+            index == inputList.length - 1 &&
+            finalValue.length === inputList.length
+            ) {
+            props.getValue(finalValue.join(''));
+            }
+        };
+
+        return (
+            <React.Fragment>
+            <form style={{ display: 'flex', flexDirection: 'row' }}>
+                {inputList &&
+                inputRefList &&
+                inputRefList.length > 0 &&
+                inputList.length > 0 &&
+                inputList.map((elem, index) => (
+                    <input
+                    style={{ width: '20px', marginRight: '5px', textAlign: 'center' }}
+                    onChange={(event) => handleValueChange(event.target.value, index)}
+                    ref={inputRefList[index]}
+                    placeholder={elem}
+                    />
+                ))}
+            </form>
+            </React.Fragment>
+        );
+    };
+    const App = () => {
+        const [count, setCount] = React.useState(0);
+        const ref = React.createRef(null);
+        const childRef = React.useRef(null);
+        React.useEffect(() => {
+            ref.current = 'Bytecode pandi';
+        }, []);
+
+        React.useEffect(() => {
+            // here for the first time render ref.current will print 'Bytecode pandi'
+            // But from the next renders onwards it prints null. because new ref is created for every re render. it won't persists the value btw renders as this ref is created using createRef
+            console.log(count, ref, childRef.current.focus());
+        }, [count]);
+        return (
+            <div>
+            <input ref={childRef} style={{ marginBottom: '20px' }} />
+            <SingleTextInputGroupBox
+                getValue={(value) => console.log('value', value)}
+                inputList={['T', 'Y', 'P', 'E', 'P', 'I', 'N', 'E']}
+            />
+            <ChildComponent count={count} />
+            <button
+                type="button"
+                style={{ marginTop: '20px' }}
+                onClick={() => setCount(count + 1)}
+            >
+                Increase count
+            </button>
+            </div>
+        );
+    }
+
+    const ChildComponent = (props) => {
+    const ref = React.useRef(props);
+    React.useEffect(() => {
+        // ref.current.count will be always the first props which we got on component mount
+        // props.count varies for every re render
+        console.log('ref', ref.current.count, props.count);
+    }, [props.count]);
+    return <p>Child Comopnent</p>;
+    };
+
+    ReactDOM.render(<App /> , document.getElementById('root'))
+    </script>
+</body>
+</html>

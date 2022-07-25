@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            min-width: 100px;
+            min-height: 100px;
+            padding: 30px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="grandparent">
+        <div id="parent">
+            <div id="child">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        // EVENT Bubbling 
+        // document.querySelector('#grandparent').addEventListener('click', () => {
+        //     console.log('grand parent clicked')
+        // });
+        // document.querySelector('#parent').addEventListener('click', () => {
+        //     console.log('Parent clicked')
+        // });
+        // document.querySelector('#child').addEventListener('click', () => {
+        //     console.log('Child clicked')
+        // });
+        // For capturing propagation then send true as third parameter for addEventListener
+
+        // Mix
+
+        document.querySelector('#grandparent').addEventListener('click', (e) => {
+            console.log('grand parent clicked')
+        }, true); // capturing
+        document.querySelector('#parent').addEventListener('click', (e) => {
+            console.log('Parent clicked')
+        }, false); // bubbling
+        document.querySelector('#child').addEventListener('click', (e) => {
+            console.log('Child clicked')
+        }, false); // bubbling
+
+        /**
+         * in this mix case let say we clicked on child
+         * then grandparent handler is in capture phase so it executes grandparent first
+         * Then it comes to parent handler. In parent handler we can see it is in bubbling phase. 
+         * so it won't execute parent handler instead it handles child handler then parent handler executes
+         * 
+         * output when child clicked
+         * ( grandparent clicked , child clicked, parent clicked)
+         * 
+         * output when parent clicked
+         * ( grandparent clicked , parent clicked)
+         **/
+    </script>
+</body>
+</html>
